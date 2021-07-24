@@ -18,13 +18,13 @@ public class ApplicationException extends RuntimeException {
     this.httpStatus = httpStatus;
   }
 
-  
-  
-  public ApplicationException(String message) {
-	this.message = message;
-	this.httpStatus = HttpStatus.NOT_FOUND;
-}
-
+//
+//
+//  public ApplicationException(String message) {
+//	this.message = message;
+//	this.httpStatus = HttpStatus.NOT_FOUND;
+//}
+//
 
 
 @Override

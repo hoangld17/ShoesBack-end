@@ -5,5 +5,8 @@ import com.example.shoesmanagement.model.Consumer;
 
 public interface ConsumerService {
     LoginResponse signin(String username, String password);
-    Consumer signup(Consumer consumer);
+
+    void saveConsumer(Consumer consumer);
+    Consumer getConsumerByUsername(String username);
+
 }

@@ -5,7 +5,8 @@ import com.example.shoesmanagement.model.enums.AppStatus;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,35 +17,31 @@ public class BrandSpecification {
             String search,
             boolean sort,
             String sortField
-
     ) {
-        return (
-                Root<Brand> clazzRoot, CriteriaQuery<?> cq, CriteriaBuilder cb
-        ) -> {
+        return (brandRoot,
+                cq,
+                cb) -> {
             cq.distinct(true);
             List<Predicate> predicates = new ArrayList<>();
 
-            predicates.add(cb.equal(clazzRoot.get("status"), AppStatus.ACTIVE));
+            predicates.add(cb.equal(brandRoot.get("status"), AppStatus.ACTIVE));
 
 
             if (name != null && !name.trim().isEmpty()) {
-                predicates.add(cb.equal(clazzRoot.get("name"), name));
+                predicates.add(cb.equal(brandRoot.get("name"), name));
             }
             if (search != null && !search.trim().isEmpty()) {
                 String searchNew = search.trim();
                 predicates.add(cb.or(
-                        cb.like(clazzRoot.get("name"), "%" + searchNew + "%")));
+                        cb.like(brandRoot.get("name"), "%" + searchNew + "%")));
 
             }
 
             Path orderClause;
-            switch (sortField.trim()) {
-                case "name":
-                    orderClause = clazzRoot.get("name");
-                    break;
-                default:
-                    orderClause = clazzRoot.get("createdDate");
-                    break;
+            if ("name".equals(sortField.trim())) {
+                orderClause = brandRoot.get("name");
+            } else {
+                orderClause = brandRoot.get("createdDate");
             }
 
             if (sort) {

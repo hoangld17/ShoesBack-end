@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "brand")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class Brand extends AuditableDomain implements Serializable {
+public class Brand extends AuditableDomain<String> implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

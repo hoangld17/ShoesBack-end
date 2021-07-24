@@ -22,14 +22,14 @@ import java.util.Date;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-public class Bill extends AuditableDomain implements Serializable {
+public class Bill extends AuditableDomain<String> implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long idConsumer;
-    private Date purchaseDate;
-    private TypeBill typeBill;
+    private Long consumer_id;
+    private Date purchase_date;
+    private TypeBill bill_type;
     private String phone;
     private String address;
-    private boolean isCart;
+    private boolean cart_id;
 }

@@ -20,12 +20,12 @@ import java.io.Serializable;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-public class BillDetail extends AuditableDomain implements Serializable {
+public class BillDetail extends AuditableDomain<String> implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long idBill;
-    private Long idShoesDetail;
+    private Long bill_id;
+    private Long shoe_detail_id;
     private int quantity;
     private double price;
 }
