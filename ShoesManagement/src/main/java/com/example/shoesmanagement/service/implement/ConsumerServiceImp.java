@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.shoesmanagement.model.util.ModelConstant.USER_NOT_FOUND;
 import static com.example.shoesmanagement.model.util.SecurityConstant.TOKEN_PREFIX;
 
 @Service
@@ -44,7 +45,7 @@ public class ConsumerServiceImp implements ConsumerService {
     public LoginResponse signin(String username, String password) {
         try {
             Consumer consumer = getConsumerByUsername(username);
-            Validator.checkNotFoundUser(consumer, username);
+            Validator.checkNotFound(consumer, String.format(USER_NOT_FOUND, username));
             final String passwordSalt = consumer.getPasswordSalt();
             Authentication authenticate = authenticationManager
                     .authenticate(

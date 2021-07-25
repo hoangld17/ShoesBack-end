@@ -5,12 +5,16 @@ import com.example.shoesmanagement.dto.request.UpdateBrandRequest;
 import com.example.shoesmanagement.dto.response.ShowDataResponse;
 import com.example.shoesmanagement.model.Brand;
 import com.example.shoesmanagement.model.enums.AppStatus;
+import com.example.shoesmanagement.model.util.Validator;
 import com.example.shoesmanagement.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static com.example.shoesmanagement.model.util.ModelConstant.BRAND_NOT_FOUND;
+
 @RestController
 @RequestMapping("/brand")
 public class BrandController {
@@ -43,9 +47,10 @@ public class BrandController {
 
     @GetMapping("/{id}")
     public ShowDataResponse<?> getBrandById(
-            @PathVariable("id") Long id
-    ) {
-        return new ShowDataResponse<>(brandService.getBrandById(id));
+            @PathVariable("id") Long id) {
+        Brand brand = brandService.getBrandById(id);
+        Validator.checkNotFound(brand, String.format(BRAND_NOT_FOUND, id.toString()));
+        return new ShowDataResponse<>(brand);
     }
 
     @GetMapping("/paging")
@@ -69,8 +74,9 @@ public class BrandController {
 
     @DeleteMapping("/{id}")
     public ShowDataResponse<?> deleteBrand(
-            @PathVariable("id") Long id
-    ) {
+            @PathVariable("id") Long id) {
+        Brand brand = brandService.getBrandById(id);
+        Validator.checkNotFound(brand, String.format(BRAND_NOT_FOUND, id.toString()));
         return new ShowDataResponse<>(brandService.deleteBrand(id));
     }
 }

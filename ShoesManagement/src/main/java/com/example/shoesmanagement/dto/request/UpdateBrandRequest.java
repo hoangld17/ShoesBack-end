@@ -1,6 +1,6 @@
 package com.example.shoesmanagement.dto.request;
 
-import com.example.shoesmanagement.dto.ParamError;
+import com.example.shoesmanagement.model.util.ParamError;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

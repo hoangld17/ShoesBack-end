@@ -1,6 +1,5 @@
 package com.example.shoesmanagement.service.implement;
 
-import com.example.shoesmanagement.exception.ApplicationException;
 import com.example.shoesmanagement.model.Brand;
 import com.example.shoesmanagement.model.enums.AppStatus;
 import com.example.shoesmanagement.repository.BrandRepository;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +22,7 @@ public class BrandServiceImp implements BrandService {
     private BrandRepository brandRepository;
     @Autowired
     private BrandSpecification brandSpecification;
-    
+
 
     @Override
     public Brand saveBrand(Brand brand) {
@@ -33,10 +31,7 @@ public class BrandServiceImp implements BrandService {
 
     @Override
     public Brand getBrandById(Long id) {
-        Brand brand = brandRepository.findOneByIdAndStatus(id, AppStatus.ACTIVE);
-        if (brand == null)
-            throw new ApplicationException(HttpStatus.NOT_FOUND, "The brand id does not exist.");
-        return brand;
+        return brandRepository.findOneByIdAndStatus(id, AppStatus.ACTIVE);
     }
 
     @Override
@@ -53,6 +48,7 @@ public class BrandServiceImp implements BrandService {
 //        } else throw new ApplicationException(APIStatus.BAD_REQUEST, "The brand can not delete!");
         return brand;
     }
+
     @Override
     public Page<Brand> getPagingBrand(String name, String search, int page, int size, boolean sort, String sortField) {
         Specification<Brand> specification = brandSpecification.doFilterBrand(name, search, sort, sortField);

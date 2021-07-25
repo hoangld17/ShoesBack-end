@@ -1,5 +1,8 @@
-package com.example.shoesmanagement.dto;
+package com.example.shoesmanagement.model.util;
 
+/**
+ * @author DiGiEx
+ */
 public interface ParamError {
 
     String FIELD_NAME = "{fieldName} is ${validatedValue == null ? 'null' : 'empty'}";

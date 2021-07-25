@@ -11,6 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,7 +20,6 @@ import java.io.Serializable;
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "brand")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Brand extends AuditableDomain<String> implements Serializable {
     @Id
@@ -27,4 +27,6 @@ public class Brand extends AuditableDomain<String> implements Serializable {
     private Long id;
     private String name;
     private AppStatus status;
+    @OneToMany(mappedBy = "brand")
+    private List<Shoe> shoes;
 }

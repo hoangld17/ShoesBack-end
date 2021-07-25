@@ -28,7 +28,7 @@ import java.util.Date;
 //superclass
 @EntityListeners(AuditingEntityListener.class)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public abstract class AuditableDomain<U> implements Serializable {
+public class AuditableDomain<U> implements Serializable {
 
     @CreatedBy
     @Column(name = "created_by", updatable = false)
@@ -36,7 +36,6 @@ public abstract class AuditableDomain<U> implements Serializable {
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
-//    @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.API_FORMAT_DATE_TIME)
     private Date created_date;
 
@@ -46,7 +45,6 @@ public abstract class AuditableDomain<U> implements Serializable {
 
     @LastModifiedDate
     @Column(name = "updated_date")
-//    @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.API_FORMAT_DATE_TIME)
     private Date updated_date;
 
