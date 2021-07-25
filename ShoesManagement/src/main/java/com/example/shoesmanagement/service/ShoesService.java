@@ -1,17 +1,21 @@
 package com.example.shoesmanagement.service;
 
+import com.example.shoesmanagement.dto.response.ShoeResponse;
 import com.example.shoesmanagement.model.Shoe;
+import com.example.shoesmanagement.model.ShoeDetail;
 
 import java.util.Collection;
 import java.util.List;
 
 public interface ShoesService {
-    Shoe saveShoe(Shoe shoe);
+    ShoeResponse saveShoe(Shoe shoe, List<ShoeDetail> shoeDetails);
 
-    List<Shoe> getShoeByIdBrand(Long id);
+    List<ShoeResponse> getShoeByIdBrand(Long id);
 
-    Shoe getShoeById(Long id);
+    ShoeResponse getShoeById(Long id);
 
-    Collection<Shoe> getAllShoe();
+    List<ShoeResponse> getAllShoe();
+
+
 
 }

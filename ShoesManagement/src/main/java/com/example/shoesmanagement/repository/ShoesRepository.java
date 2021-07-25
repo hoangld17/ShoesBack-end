@@ -10,6 +10,6 @@ import java.util.List;
 public interface ShoesRepository extends
         PagingAndSortingRepository<Shoe, Long>,
         JpaSpecificationExecutor<Shoe> {
-    Shoe findShoeById(Long id);
-    List<Shoe> findAllByIdBrandAndStatus(Long id, AppStatus appStatus);
+    Shoe findOneById(Long id);
+    List<Shoe> findAllByIdBrand(Long id);
 }

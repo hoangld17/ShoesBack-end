@@ -6,7 +6,9 @@ import com.example.shoesmanagement.dto.request.UpdateConsumerRequest;
 import com.example.shoesmanagement.model.Brand;
 import com.example.shoesmanagement.model.Consumer;
 import com.example.shoesmanagement.model.Shoe;
+import com.example.shoesmanagement.model.ShoeDetail;
 import com.example.shoesmanagement.model.enums.AppStatus;
+import com.example.shoesmanagement.model.enums.Color;
 import com.example.shoesmanagement.model.enums.UserRole;
 import com.example.shoesmanagement.model.util.AppUtil;
 import com.example.shoesmanagement.model.util.Validator;
@@ -14,6 +16,9 @@ import com.example.shoesmanagement.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.shoesmanagement.model.util.ModelConstant.BRAND_NOT_FOUND;
 
@@ -54,5 +59,18 @@ public class MappingHelper {
         shoe.setPrice(createShoeRequest.getPrice());
         shoe.setStatus(AppStatus.ACTIVE);
         return shoe;
+    }
+    public static List<ShoeDetail> mapShoeDetail(CreateShoeRequest createShoeRequest){
+        List<ShoeDetail> list = new ArrayList<>();
+        for (int i = 0; i < createShoeRequest.getColors().size(); i++) {
+            for (int j = 0; j < createShoeRequest.getSizes().size(); j++) {
+                ShoeDetail shoeDetail = new ShoeDetail();
+                shoeDetail.setCurrentQuantity(0);
+                shoeDetail.setColor(createShoeRequest.getColors().get(i));
+                shoeDetail.setSize(createShoeRequest.getSizes().get(j));
+                list.add(shoeDetail);
+            }
+        }
+        return list;
     }
 }

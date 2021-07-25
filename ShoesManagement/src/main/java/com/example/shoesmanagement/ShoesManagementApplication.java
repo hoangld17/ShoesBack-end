@@ -38,13 +38,13 @@ public class ShoesManagementApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        Consumer consumer = new Consumer();
-//        consumer.setUsername("Phil Conal");
-//        String salt = AppUtil.generateSalt();
-//        consumer.setPasswordSalt(salt);
-//        consumer.setPasswordHash(encoder.encode("password" + salt));
-//        consumer.setRole(UserRole.ADMIN);
-//        consumerService.saveConsumer(consumer);
+        Consumer consumer = new Consumer();
+        consumer.setUsername("Phil Conal");
+        String salt = AppUtil.generateSalt();
+        consumer.setPasswordSalt(salt);
+        consumer.setPasswordHash(encoder.encode("password" + salt));
+        consumer.setRole(UserRole.ADMIN);
+        consumerService.saveConsumer(consumer);
     }
 //    @Bean
 //    public CorsFilter corsFilter() {
