@@ -32,31 +32,31 @@ public class AuditableDomain<U> implements Serializable {
 
     @CreatedBy
     @Column(name = "created_by", updatable = false)
-    private U created_by;
+    private U createdBy;
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.API_FORMAT_DATE_TIME)
-    private Date created_date;
+    private Date createdDate;
 
     @LastModifiedBy
     @Column(name = "updated_by")
-    private U updated_by;
+    private U updatedBy;
 
     @LastModifiedDate
     @Column(name = "updated_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.API_FORMAT_DATE_TIME)
-    private Date updated_date;
+    private Date updatedDate;
 
     @PrePersist
     protected void onCreate() {
-        this.created_date = new Date();
-        this.updated_date = null;
-        this.updated_by = null;
+        this.createdDate = new Date();
+        this.updatedDate = null;
+        this.updatedDate = null;
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.updated_date = new Date();
+        this.updatedDate = new Date();
     }
 }

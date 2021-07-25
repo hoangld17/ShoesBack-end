@@ -6,6 +6,7 @@ import com.example.shoesmanagement.dto.request.UpdateConsumerRequest;
 import com.example.shoesmanagement.model.Brand;
 import com.example.shoesmanagement.model.Consumer;
 import com.example.shoesmanagement.model.Shoe;
+import com.example.shoesmanagement.model.enums.AppStatus;
 import com.example.shoesmanagement.model.enums.UserRole;
 import com.example.shoesmanagement.model.util.AppUtil;
 import com.example.shoesmanagement.model.util.Validator;
@@ -46,17 +47,12 @@ public class MappingHelper {
         consumer.setRole(UserRole.USER);
         return consumer;
     }
-
-    public Shoe mapShoe(CreateShoeRequest request) {
+    public static Shoe mapShoe(CreateShoeRequest createShoeRequest){
         Shoe shoe = new Shoe();
-        shoe.setName(request.getName());
-
-         Brand brand = brandService.getBrandById(request.getBrand_id());
-        Validator.checkNotFound(brand, String.format(BRAND_NOT_FOUND, request.getBrand_id().toString()));
-
-        shoe.setBrand(brand);
-        shoe.setPrice(request.getPrice());
-
+        shoe.setIdBrand(createShoeRequest.getIdBrand());
+        shoe.setName(createShoeRequest.getName());
+        shoe.setPrice(createShoeRequest.getPrice());
+        shoe.setStatus(AppStatus.ACTIVE);
         return shoe;
     }
 }

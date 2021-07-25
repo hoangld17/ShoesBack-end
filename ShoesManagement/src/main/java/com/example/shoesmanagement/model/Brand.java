@@ -1,6 +1,7 @@
 package com.example.shoesmanagement.model;
 
 import com.example.shoesmanagement.model.enums.AppStatus;
+import com.example.shoesmanagement.model.util.Validator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +27,9 @@ public class Brand extends AuditableDomain<String> implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private AppStatus status;
-    @OneToMany(mappedBy = "brand")
-    private List<Shoe> shoes;
+
+    public void setName(String name) {
+        Validator.checkNullEmptyAndLength(name, 64, "Name");
+        this.name = name;
+    }
 }

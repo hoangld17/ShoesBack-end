@@ -3,9 +3,12 @@ package com.example.shoesmanagement.service;
 import com.example.shoesmanagement.model.Shoe;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface ShoesService {
-    void saveShoe(Shoe shoe);
+    Shoe saveShoe(Shoe shoe);
+
+    List<Shoe> getShoeByIdBrand(Long id);
 
     Shoe getShoeById(Long id);
 

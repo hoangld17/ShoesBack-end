@@ -27,7 +27,6 @@ public class BrandController {
     ) {
         Brand brand = new Brand();
         brand.setName(createBrandRequest.getName().trim());
-        brand.setStatus(AppStatus.ACTIVE);
         brand = brandService.saveBrand(brand);
         return new ShowDataResponse<>(brand);
     }

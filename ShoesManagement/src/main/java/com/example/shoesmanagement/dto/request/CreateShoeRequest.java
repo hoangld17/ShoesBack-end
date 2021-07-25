@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 public class CreateShoeRequest {
     private String name;
     private double price;
-    private Long brand_id;
+    private Long idBrand;
 }

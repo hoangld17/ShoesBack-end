@@ -2,6 +2,7 @@ package com.example.shoesmanagement.model;
 
 import com.example.shoesmanagement.model.enums.UserRole;
 import com.example.shoesmanagement.model.util.Constant;
+import com.example.shoesmanagement.model.util.Validator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -31,10 +32,10 @@ public class Consumer implements Serializable {
     @CreatedDate
     @Column(updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.API_FORMAT_DATE_TIME)
-    private Date created_date;
+    private Date createdDate;
     @LastModifiedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constant.API_FORMAT_DATE_TIME)
-    private Date updated_date;
+    private Date updatedDate;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -51,14 +52,43 @@ public class Consumer implements Serializable {
 
     @PrePersist
     protected void onCreate() {
-        this.created_date = new Date();
-        this.updated_date = null;
+        this.createdDate = new Date();
+        this.updatedDate = null;
 
     }
 
     @PreUpdate
     protected void onUpdate() {
-        this.updated_date = new Date();
+        this.updatedDate = new Date();
     }
 
+    public void setFirstName(String firstName) {
+        Validator.checkNullEmptyAndLength(firstName, 50, "First name");
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        Validator.checkNullEmptyAndLength(lastName, 50, "Last name");
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        Validator.validateEmail(email);
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        Validator.checkPhoneFormat(phone);
+        this.phone = phone;
+    }
+
+    public void setAddress(String address) {
+        Validator.checkNullEmptyAndLength(address, 200, "Address");
+        this.address = address;
+    }
+
+    public void setUsername(String username) {
+        Validator.checkNullEmptyAndLength(username, 50, "Username");
+        this.username = username;
+    }
 }

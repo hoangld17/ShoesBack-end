@@ -8,7 +8,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface BrandRepository extends PagingAndSortingRepository<Brand, Long>, JpaSpecificationExecutor<Brand> {
-    Brand findOneByIdAndStatus(Long id, AppStatus appStatus);
+    Brand findOneById(Long id);
 
-    List<Brand> findAllByStatus(AppStatus appStatus);
+    boolean existsByName(String name);
+
+    List<Brand> findAll();
 }

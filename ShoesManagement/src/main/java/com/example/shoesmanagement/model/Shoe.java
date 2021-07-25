@@ -1,6 +1,7 @@
 package com.example.shoesmanagement.model;
 
 import com.example.shoesmanagement.model.enums.AppStatus;
+import com.example.shoesmanagement.model.util.Validator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,16 +24,23 @@ public class Shoe extends AuditableDomain<String> implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
+    private Long idBrand;
     private String name;
-
     private double price;
-
-    @ManyToOne
-    @JoinColumn(name = "brand_id", nullable = false)
-    private Brand brand;
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private AppStatus status;
+
+    public void setName(String name) {
+        Validator.checkNullEmptyAndLength(name, 100, "Name");
+        this.name = name;
+    }
+
+    public void setPrice(double price) {
+        Validator.checkNumber(price, "Price");
+        this.price = price;
+    }
+
+    public void setStatus(AppStatus status) {
+        Validator.checkNull(status, "Status");
+        this.status = status;
+    }
 }
