@@ -8,6 +8,8 @@ import com.example.shoesmanagement.model.util.Validator;
 import com.example.shoesmanagement.service.ConsumerService;
 import org.springframework.web.bind.annotation.*;
 
+import static com.example.shoesmanagement.model.util.ModelConstant.USER_EXISTED;
+
 @RestController
 @RequestMapping("/consumer")
 public class ConsumerController {
@@ -29,7 +31,7 @@ public class ConsumerController {
     @PostMapping()
     public ShowDataResponse<?> createConsumer(@RequestBody CreateConsumerRequest request) {
         final Consumer consumerByUsername = consumerService.getConsumerByUsername(request.getUsername());
-        Validator.checkExistingUser(consumerByUsername, request.getUsername());
+        Validator.checkExistingObject(consumerByUsername, String.format(USER_EXISTED, request.getUsername()));
         Validator.validateEmail(request.getEmail());
         Validator.checkMatchObject(request.getPassword(), request.getConfirmed());
         Consumer consumer = mappingHelper.mapConsumer(request);

@@ -3,19 +3,25 @@ package com.example.shoesmanagement.controller.helper;
 import com.example.shoesmanagement.dto.request.CreateConsumerRequest;
 import com.example.shoesmanagement.dto.request.CreateShoeRequest;
 import com.example.shoesmanagement.dto.request.UpdateConsumerRequest;
+import com.example.shoesmanagement.model.Brand;
 import com.example.shoesmanagement.model.Consumer;
 import com.example.shoesmanagement.model.Shoe;
 import com.example.shoesmanagement.model.enums.UserRole;
 import com.example.shoesmanagement.model.util.AppUtil;
 import com.example.shoesmanagement.model.util.Validator;
+import com.example.shoesmanagement.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import static com.example.shoesmanagement.model.util.ModelConstant.BRAND_NOT_FOUND;
 
 @Component
 public class MappingHelper {
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private BrandService brandService;
 
     public static Consumer mapConsumer(Consumer consumer, UpdateConsumerRequest updateConsumerRequest) {
         consumer.setFirstName(updateConsumerRequest.getFirstName());
@@ -44,8 +50,13 @@ public class MappingHelper {
     public Shoe mapShoe(CreateShoeRequest request) {
         Shoe shoe = new Shoe();
         shoe.setName(request.getName());
-        shoe.setBrand_id(request.getBrand_id());
+
+         Brand brand = brandService.getBrandById(request.getBrand_id());
+        Validator.checkNotFound(brand, String.format(BRAND_NOT_FOUND, request.getBrand_id().toString()));
+
+        shoe.setBrand(brand);
         shoe.setPrice(request.getPrice());
+
         return shoe;
     }
 }

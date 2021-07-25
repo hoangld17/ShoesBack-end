@@ -6,7 +6,9 @@ import java.util.Collection;
 
 public interface ShoesService {
     void saveShoe(Shoe shoe);
-Shoe getShoeById(Long id);
+
+    Shoe getShoeById(Long id);
+
     Collection<Shoe> getAllShoe();
 
 }
