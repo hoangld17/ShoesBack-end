@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,12 +28,14 @@ public class Bill extends AuditableDomain<String> implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long idConsumer;
+    private String consumerUsername;
     private Date purchaseDate;
     private TypeBill billType;
     private String phone;
+    private String email;
     private String address;
     private boolean isCart;
+    private double total;
 
     public void setPurchaseDate(String purchaseDate) {
         this.purchaseDate = Validator.convertDate(purchaseDate, "Purchase date");

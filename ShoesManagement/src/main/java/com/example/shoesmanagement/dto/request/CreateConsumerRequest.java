@@ -33,4 +33,6 @@ public class CreateConsumerRequest {
     @NotBlank(message = ParamError.FIELD_NAME)
     private String confirmed;
 
+    @NotBlank(message = ParamError.FIELD_NAME)
+    private String imgUrl;
 }

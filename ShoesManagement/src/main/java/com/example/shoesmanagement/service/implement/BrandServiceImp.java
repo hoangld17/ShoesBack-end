@@ -28,30 +28,31 @@ public class BrandServiceImp implements BrandService {
 
     @Override
     public Brand saveBrand(Brand brand) {
-        if (brandRepository.existsByName(brand.getName()))
-            throw new ApplicationException(HttpStatus.BAD_REQUEST, "Name of brand exists.");
+//        if (brandRepository.existsByName(brand.getName()))
+//            throw new ApplicationException(HttpStatus.BAD_REQUEST, "Name of brand exists."+ brand.getName());
         return brandRepository.save(brand);
     }
 
     @Override
     public Brand getBrandById(Long id) {
-        Brand brand = brandRepository.findOneById(id);
+        Brand brand = brandRepository.findOneByIdAndStatus(id, AppStatus.ACTIVE);
         if (brand == null)
-            throw new ApplicationException(HttpStatus.NOT_FOUND, "Brand does not exist.");
-        return brandRepository.findOneById(id);
+            throw new ApplicationException(HttpStatus.NOT_FOUND, String.format("Brand name %s not found.", brand.getName()));
+        return brand;
     }
 
     @Override
     public List<Brand> getAllBrand() {
-        return brandRepository.findAll();
+        return brandRepository.findAllByStatus(AppStatus.ACTIVE);
     }
 
+
     @Override
-    public Brand deleteBrand(Long id) {
-        Brand brand = getBrandById(id);
+    public Brand deleteBrand(Brand brand) {
+//        Brand brand = getBrandById(id);
 //        if (studentService.findAllByBrandId(id).isEmpty()) {
-//            brand.setStatus(AppStatus.INACTIVE);
-//            brand = saveBrand(brand);
+        brand.setStatus(AppStatus.INACTIVE);
+        this.brandRepository.save(brand);
 //        } else throw new ApplicationException(APIStatus.BAD_REQUEST, "The brand can not delete!");
         return brand;
     }

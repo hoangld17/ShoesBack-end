@@ -1,26 +1,21 @@
 package com.example.shoesmanagement.controller.helper;
 
-import com.example.shoesmanagement.dto.request.CreateConsumerRequest;
-import com.example.shoesmanagement.dto.request.CreateShoeRequest;
-import com.example.shoesmanagement.dto.request.UpdateConsumerRequest;
-import com.example.shoesmanagement.model.Brand;
-import com.example.shoesmanagement.model.Consumer;
-import com.example.shoesmanagement.model.Shoe;
-import com.example.shoesmanagement.model.ShoeDetail;
+import com.example.shoesmanagement.dto.request.*;
+import com.example.shoesmanagement.dto.response.BillResponse;
+import com.example.shoesmanagement.exception.ApplicationException;
+import com.example.shoesmanagement.model.*;
 import com.example.shoesmanagement.model.enums.AppStatus;
-import com.example.shoesmanagement.model.enums.Color;
+import com.example.shoesmanagement.model.enums.TypeBill;
 import com.example.shoesmanagement.model.enums.UserRole;
 import com.example.shoesmanagement.model.util.AppUtil;
-import com.example.shoesmanagement.model.util.Validator;
 import com.example.shoesmanagement.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.shoesmanagement.model.util.ModelConstant.BRAND_NOT_FOUND;
 
 @Component
 public class MappingHelper {
@@ -38,6 +33,60 @@ public class MappingHelper {
         return consumer;
     }
 
+//    public static Bill mapBill(UpdateBillRequest request) throws ParseException {
+//        final Bill bill = new Bill();
+//        bill.set(request.getIdConsumer());
+//        bill.setBillType(TypeBill.Export);
+//        bill.setAddress(request.getAddress());
+//        bill.setPhone(request.getPhone());
+//        bill.setPurchaseDate(request.getPurchaseDate());
+//        bill.setCart(false);
+//        return bill;
+//
+//    }
+
+    public static Shoe mapShoe(CreateShoeRequest createShoeRequest) {
+        Shoe shoe = new Shoe();
+        shoe.setIdBrand(createShoeRequest.getIdBrand());
+        shoe.setName(createShoeRequest.getName());
+        shoe.setPrice(createShoeRequest.getPrice());
+        shoe.setStatus(AppStatus.ACTIVE);
+        return shoe;
+    }
+
+    public static List<ShoeDetail> mapShoeDetail(CreateShoeRequest createShoeRequest) {
+        List<ShoeDetail> list = new ArrayList<>();
+        for (int j = 0; j < createShoeRequest.getSizes().size(); j++) {
+            ShoeDetail shoeDetail = new ShoeDetail();
+            shoeDetail.setCurrentQuantity(0);
+            shoeDetail.setSize(createShoeRequest.getSizes().get(j));
+            list.add(shoeDetail);
+        }
+        return list;
+    }
+
+    public static Bill mapBillAuthentication(UpdateBillRequest request, BillResponse bill) {
+        final Bill newBill = new Bill();
+       newBill.setTotal(request.getTotal());
+       newBill.setPurchaseDate(request.getPurchaseDate());
+       newBill.setConsumerUsername(bill.getConsumerUsername());
+       newBill.setBillType(bill.getBillType());
+       newBill.setAddress(bill.getAddress());
+       newBill.setCart(false);
+       newBill.setPhone(bill.getPhone());
+       newBill.setId(bill.getId());
+       return newBill;
+    }
+
+    public static BillDetail mapBillDetail(BillDetailRequest request) {
+        final BillDetail billDetail = new BillDetail();
+        billDetail.setIdShoeDetail(request.getIdShoeDetail());
+        billDetail.setQuantity(request.getQuantity());
+        return billDetail;
+    }
+
+
+
     public Consumer mapConsumer(CreateConsumerRequest createConsumerRequest) {
         Consumer consumer = new Consumer();
         consumer.setFirstName(createConsumerRequest.getFirstName());
@@ -50,27 +99,8 @@ public class MappingHelper {
         consumer.setPasswordHash(passwordEncoder.encode(createConsumerRequest.getPassword().concat(passwordSalt)));
         consumer.setPasswordSalt(passwordSalt);
         consumer.setRole(UserRole.USER);
+        consumer.setStatus(AppStatus.ACTIVE);
+        consumer.setImgUrl(createConsumerRequest.getImgUrl());
         return consumer;
-    }
-    public static Shoe mapShoe(CreateShoeRequest createShoeRequest){
-        Shoe shoe = new Shoe();
-        shoe.setIdBrand(createShoeRequest.getIdBrand());
-        shoe.setName(createShoeRequest.getName());
-        shoe.setPrice(createShoeRequest.getPrice());
-        shoe.setStatus(AppStatus.ACTIVE);
-        return shoe;
-    }
-    public static List<ShoeDetail> mapShoeDetail(CreateShoeRequest createShoeRequest){
-        List<ShoeDetail> list = new ArrayList<>();
-        for (int i = 0; i < createShoeRequest.getColors().size(); i++) {
-            for (int j = 0; j < createShoeRequest.getSizes().size(); j++) {
-                ShoeDetail shoeDetail = new ShoeDetail();
-                shoeDetail.setCurrentQuantity(0);
-                shoeDetail.setColor(createShoeRequest.getColors().get(i));
-                shoeDetail.setSize(createShoeRequest.getSizes().get(j));
-                list.add(shoeDetail);
-            }
-        }
-        return list;
     }
 }

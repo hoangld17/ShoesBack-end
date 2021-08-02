@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ShoesDetailRepository extends PagingAndSortingRepository<ShoeDetail, Long>, JpaSpecificationExecutor<ShoeDetail> {
     List<ShoeDetail> findAllByIdShoe(Long id);
+    ShoeDetail findOneById(Long id);
 }

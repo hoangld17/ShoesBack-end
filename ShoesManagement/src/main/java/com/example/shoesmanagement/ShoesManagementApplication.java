@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -18,14 +19,13 @@ import org.springframework.web.filter.CorsFilter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
-
 @SpringBootApplication
-public class ShoesManagementApplication implements CommandLineRunner {
+public class ShoesManagementApplication  {
 
-    @Autowired
-    ConsumerService consumerService;
-    @Autowired
-    PasswordEncoder encoder;
+//    @Autowired
+//    ConsumerService consumerService;
+//    @Autowired
+//    PasswordEncoder encoder;
 
     public static void main(String[] args) {
         SpringApplication.run(ShoesManagementApplication.class, args);
@@ -36,16 +36,16 @@ public class ShoesManagementApplication implements CommandLineRunner {
         return new ModelMapper();
     }
 
-    @Override
-    public void run(String... args) throws Exception {
-        Consumer consumer = new Consumer();
-        consumer.setUsername("Phil Conal");
-        String salt = AppUtil.generateSalt();
-        consumer.setPasswordSalt(salt);
-        consumer.setPasswordHash(encoder.encode("password" + salt));
-        consumer.setRole(UserRole.ADMIN);
-        consumerService.saveConsumer(consumer);
-    }
+//    @Override
+//    public void run(String... args) throws Exception {
+//        Consumer consumer = new Consumer();
+//        consumer.setUsername("Phil Conal");
+//        String salt = AppUtil.generateSalt();
+//        consumer.setPasswordSalt(salt);
+//        consumer.setPasswordHash(encoder.encode("password" + salt));
+//        consumer.setRole(UserRole.ADMIN);
+//        consumerService.saveConsumer(consumer);
+//    }
 //    @Bean
 //    public CorsFilter corsFilter() {
 //        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();

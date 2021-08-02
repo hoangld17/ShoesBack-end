@@ -35,13 +35,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/public/**",
             "/**/*.json",
             "/**/*.jpg",
+            "/brand/**",
+            "/brand/paging/**",
             // enable swagger endpoints
             "/swagger-resources/**",
             "/configuration/ui",
             "/swagger-ui/**",
             "/configuration/security",
             "/manage/api-docs",
-            "/consumer/signin"};
+            "/consumer/signin/**"};
 
     private final JwtTokenProvider jwtTokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;

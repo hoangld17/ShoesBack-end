@@ -27,9 +27,18 @@ public class Brand extends AuditableDomain<String> implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String phone;
+    private String email;
+    private String imgUrl;
+    private AppStatus status;
 
     public void setName(String name) {
         Validator.checkNullEmptyAndLength(name, 64, "Name");
         this.name = name;
+    }
+
+    public void setEmail(String email) {
+        Validator.validateEmail(email);
+        this.email = email;
     }
 }

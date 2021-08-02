@@ -22,8 +22,9 @@ public class BrandSpecification {
                 cq,
                 cb) -> {
             cq.distinct(true);
-            List<Predicate> predicates = new ArrayList<>();
 
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(cb.equal(brandRoot.get("status"), AppStatus.ACTIVE));
             if (name != null && !name.trim().isEmpty()) {
                 predicates.add(cb.equal(brandRoot.get("name"), name));
             }

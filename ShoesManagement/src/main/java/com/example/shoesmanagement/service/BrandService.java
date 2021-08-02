@@ -12,7 +12,7 @@ public interface BrandService {
 
     List<Brand> getAllBrand();
 
-    Brand deleteBrand(Long id);
+    Brand deleteBrand(Brand brand);
 
     Page<Brand> getPagingBrand(String name, String search, int page, int size, boolean sort, String sortField);
 

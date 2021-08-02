@@ -6,10 +6,12 @@ import com.example.shoesmanagement.dto.response.ShowDataResponse;
 import com.example.shoesmanagement.model.Consumer;
 import com.example.shoesmanagement.model.util.Validator;
 import com.example.shoesmanagement.service.ConsumerService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import static com.example.shoesmanagement.model.util.ModelConstant.USER_EXISTED;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/consumer")
 public class ConsumerController {
@@ -38,15 +40,27 @@ public class ConsumerController {
         consumerService.saveConsumer(consumer);
         return new ShowDataResponse<>(consumer);
     }
-//    @PutMapping("/{id}")
-//    public ShowDataResponse<?> updateConsumer(
-//            @PathVariable("id") Long id, @RequestBody UpdateConsumerRequest updateConsumerRequest
-//    ){
-//        Consumer consumer = MappingHelper.mapConsumer(consumerService.get);
-//        List<Role> roles = new ArrayList<>();
-//        roles.add(Role.ROLE_GUEST);
-//        consumer.setRoles(roles);
-//        return new ShowDataResponse<>(consumerService.signup(consumer));
-//    }
 
+    @GetMapping()
+    public ShowDataResponse<?> getAll(
+            @RequestParam(value = "role", required = false) String role,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        Page<Consumer> allConsumer = consumerService.getAllConsumer(role, name, page, size);
+        return new ShowDataResponse<>(allConsumer);
+    }
+
+    @GetMapping(path = "/users")
+    public ShowDataResponse<?> getAll(
+            @RequestParam(value = "search", required = false) String search,
+            @RequestParam(value = "start", required = false) String start,
+            @RequestParam(value = "end", required = false) String end,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        Page<Consumer> allConsumer = consumerService.getAllConsumerByUserRole(search, start, end, page, size);
+        return new ShowDataResponse<>(allConsumer);
+    }
 }

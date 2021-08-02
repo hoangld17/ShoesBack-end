@@ -1,5 +1,6 @@
 package com.example.shoesmanagement.model;
 
+import com.example.shoesmanagement.model.enums.AppStatus;
 import com.example.shoesmanagement.model.enums.UserRole;
 import com.example.shoesmanagement.model.util.Constant;
 import com.example.shoesmanagement.model.util.Validator;
@@ -45,10 +46,12 @@ public class Consumer implements Serializable {
     private String phone;
     private String address;
     private String username;
+    private String imgUrl;
     @JsonProperty(access = WRITE_ONLY)
     private String passwordHash;
     @JsonProperty(access = WRITE_ONLY)
     private String passwordSalt;
+    private AppStatus status;
 
     @PrePersist
     protected void onCreate() {

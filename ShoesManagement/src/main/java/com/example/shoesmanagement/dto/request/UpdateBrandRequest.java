@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 public class UpdateBrandRequest {
-    @Size(max = 64, message = ParamError.MAX_LENGTH)
     private String name;
+    private String phone;
+    private String email;
+    private String imgUrl;
 }
