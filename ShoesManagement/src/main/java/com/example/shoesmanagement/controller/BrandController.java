@@ -65,6 +65,7 @@ public class BrandController {
     }
 
     @RequestMapping(path = "/list", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:4200")
     public ShowDataResponse<?> getAllBrand(
     ) {
         List<Brand> brandList = brandService.getAllBrand();

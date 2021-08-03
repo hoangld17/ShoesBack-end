@@ -101,6 +101,12 @@ public class Validator {
         if (num < 0)
             throw new ApplicationException(HttpStatus.BAD_REQUEST, fieldName+" must be greater than 0.");
     }
+    public static void checkDiscount(int num){
+        if (num < 0)
+            throw new ApplicationException(HttpStatus.BAD_REQUEST, "Discount must be greater than 0.");
+        if (num > 100)
+            throw new ApplicationException(HttpStatus.BAD_REQUEST, "Discount must be less than 100.");
+    }
     public static void checkNumber(double num, String fieldName){
         if (num < 0)
             throw new ApplicationException(HttpStatus.BAD_REQUEST, fieldName+" must be greater than 0.");

@@ -9,5 +9,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LoginResponse {
     private String username;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String address;
     private String token;
+    private String image;
 }

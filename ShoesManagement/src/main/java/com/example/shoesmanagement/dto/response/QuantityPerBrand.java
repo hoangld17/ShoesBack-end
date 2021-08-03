@@ -1,12 +1,12 @@
 package com.example.shoesmanagement.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-public class ShoeDetailResponse {
+@AllArgsConstructor
+public class QuantityPerBrand {
     private Long id;
-    private double size;
-    private int currentQuantity;
+    private Long quantity;
 }

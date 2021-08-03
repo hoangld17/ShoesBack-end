@@ -7,6 +7,7 @@ import com.example.shoesmanagement.model.Consumer;
 import com.example.shoesmanagement.model.util.Validator;
 import com.example.shoesmanagement.repository.ConsumerRepository;
 import com.example.shoesmanagement.security.JwtTokenProvider;
+import com.example.shoesmanagement.service.BillService;
 import com.example.shoesmanagement.service.ConsumerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,9 @@ import static com.example.shoesmanagement.model.util.SecurityConstant.TOKEN_PREF
 public class ConsumerServiceImp implements ConsumerService {
     @Autowired
     private ConsumerRepository consumerRepository;
+
+    @Autowired
+    private BillService billService;
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
@@ -63,11 +68,19 @@ public class ConsumerServiceImp implements ConsumerService {
         }
     }
 
+
+
+
     @Override
     public void saveConsumer(Consumer consumer) {
         consumerRepository.save(consumer);
     }
 
+    public void signup(Consumer consumer) {
+
+        consumer = consumerRepository.save(consumer);
+        billService.createBillEmptyUser(consumer);
+    }
     @Override
     public Consumer getConsumerByUsername(String username) {
         return consumerRepository.findByUsername(username);

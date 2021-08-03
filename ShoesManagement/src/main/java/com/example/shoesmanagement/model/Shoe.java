@@ -26,8 +26,16 @@ public class Shoe extends AuditableDomain<String> implements Serializable {
     private Long id;
     private Long idBrand;
     private String name;
+    private String description;
     private double price;
+    private double discount;
+    private int totalImages;
     private AppStatus status;
+
+    public void setTotalImages(int totalImages) {
+        Validator.checkNumber(totalImages, "Total images");
+        this.totalImages = totalImages;
+    }
 
     public void setName(String name) {
         Validator.checkNullEmptyAndLength(name, 100, "Name");
@@ -42,5 +50,15 @@ public class Shoe extends AuditableDomain<String> implements Serializable {
     public void setStatus(AppStatus status) {
         Validator.checkNull(status, "Status");
         this.status = status;
+    }
+
+    public void setDescription(String description) {
+        Validator.checkNullEmptyAndLength(name, 255, "Description");
+        this.description = description;
+    }
+
+    public void setDiscount(double discount) {
+        Validator.checkNumber(discount, "Discount price");
+        this.discount = discount;
     }
 }

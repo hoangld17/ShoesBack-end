@@ -1,5 +1,5 @@
 package com.example.shoesmanagement.model.enums;
 
-public enum TypeBill {
+public enum BillType {
     Import, Export;
 }

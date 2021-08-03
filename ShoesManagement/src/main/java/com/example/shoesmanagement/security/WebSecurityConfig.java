@@ -67,6 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(PUBLIC_URLS).permitAll()
+                .antMatchers("/shoes/**", "/brand/**").permitAll()
                 .anyRequest().authenticated();// All other request must be specify token
 
         // Custom JWT based security filter

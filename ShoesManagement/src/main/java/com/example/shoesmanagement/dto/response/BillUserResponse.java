@@ -3,10 +3,12 @@ package com.example.shoesmanagement.dto.response;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
-public class ShoeDetailResponse {
+public class BillUserResponse {
     private Long id;
-    private double size;
-    private int currentQuantity;
+    private Date purchaseDate;
+    private double total;
 }

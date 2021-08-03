@@ -1,8 +1,6 @@
 package com.example.shoesmanagement.model;
 
 import com.example.shoesmanagement.exception.ApplicationException;
-import com.example.shoesmanagement.model.enums.AppStatus;
-import com.example.shoesmanagement.model.enums.Color;
 import com.example.shoesmanagement.model.util.Validator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,18 +29,12 @@ public class ShoeDetail extends AuditableDomain<String> implements Serializable 
     private Long id;
     private Long idShoe;
     private double size;
-    private Color color;
     private int currentQuantity;
 
     public void setSize(double size) {
         if (size > 45 || size < 35)
             throw new ApplicationException(HttpStatus.BAD_REQUEST, "Size of shoes is between 35 and 45.");
         this.size = size;
-    }
-
-    public void setColor(Color color) {
-        Validator.checkNull(color, "Color");
-        this.color = color;
     }
 
     public void setCurrentQuantity(int currentQuantity) {

@@ -1,18 +1,17 @@
 package com.example.shoesmanagement.dto.response;
 
-import com.example.shoesmanagement.model.enums.AppStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
 @Data
 @NoArgsConstructor
-public class ShoeResponse {
+public class OneBillUserResponse {
     private Long id;
-    private String name;
-    private double price;
-    private String description;
-    private String image;
+    private String purchaseDate;
+    private String phone;
+    private String address;
+    private double total;
     private double discount;
+    private List<BillDetailUserResponse> listBillDetail;
 }

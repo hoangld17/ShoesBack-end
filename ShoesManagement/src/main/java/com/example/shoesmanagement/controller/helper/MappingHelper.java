@@ -3,15 +3,12 @@ package com.example.shoesmanagement.controller.helper;
 import com.example.shoesmanagement.dto.request.CreateConsumerRequest;
 import com.example.shoesmanagement.dto.request.CreateShoeRequest;
 import com.example.shoesmanagement.dto.request.UpdateConsumerRequest;
-import com.example.shoesmanagement.model.Brand;
 import com.example.shoesmanagement.model.Consumer;
 import com.example.shoesmanagement.model.Shoe;
 import com.example.shoesmanagement.model.ShoeDetail;
 import com.example.shoesmanagement.model.enums.AppStatus;
-import com.example.shoesmanagement.model.enums.Color;
 import com.example.shoesmanagement.model.enums.UserRole;
 import com.example.shoesmanagement.model.util.AppUtil;
-import com.example.shoesmanagement.model.util.Validator;
 import com.example.shoesmanagement.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,8 +16,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.shoesmanagement.model.util.ModelConstant.BRAND_NOT_FOUND;
 
 @Component
 public class MappingHelper {
@@ -57,19 +52,19 @@ public class MappingHelper {
         shoe.setIdBrand(createShoeRequest.getIdBrand());
         shoe.setName(createShoeRequest.getName());
         shoe.setPrice(createShoeRequest.getPrice());
+        shoe.setDescription(createShoeRequest.getDescription());
+        shoe.setDiscount(createShoeRequest.getDiscount());
+        shoe.setTotalImages(createShoeRequest.getImages().size());
         shoe.setStatus(AppStatus.ACTIVE);
         return shoe;
     }
     public static List<ShoeDetail> mapShoeDetail(CreateShoeRequest createShoeRequest){
         List<ShoeDetail> list = new ArrayList<>();
-        for (int i = 0; i < createShoeRequest.getColors().size(); i++) {
-            for (int j = 0; j < createShoeRequest.getSizes().size(); j++) {
-                ShoeDetail shoeDetail = new ShoeDetail();
-                shoeDetail.setCurrentQuantity(0);
-                shoeDetail.setColor(createShoeRequest.getColors().get(i));
-                shoeDetail.setSize(createShoeRequest.getSizes().get(j));
-                list.add(shoeDetail);
-            }
+        for (double size : createShoeRequest.getSizes()) {
+            ShoeDetail shoeDetail = new ShoeDetail();
+            shoeDetail.setCurrentQuantity(0);
+            shoeDetail.setSize(size);
+            list.add(shoeDetail);
         }
         return list;
     }

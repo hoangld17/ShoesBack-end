@@ -1,5 +1,5 @@
 file:
-  upload-dir-book: D://temp//imageBook//
+  upload-dir-shoes: C:/temp/imageShoes/
 spring:
   servlet:
     multipart:

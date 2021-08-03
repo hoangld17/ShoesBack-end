@@ -1,6 +1,6 @@
 package com.example.shoesmanagement.model;
 
-import com.example.shoesmanagement.model.enums.TypeBill;
+import com.example.shoesmanagement.model.enums.BillType;
 import com.example.shoesmanagement.model.util.Validator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,13 +29,17 @@ public class Bill extends AuditableDomain<String> implements Serializable {
     private Long id;
     private Long idConsumer;
     private Date purchaseDate;
-    private TypeBill billType;
+    private BillType billType;
     private String phone;
     private String address;
-    private boolean isCart;
-
+    private boolean cart;
+    private double total;
+    private double discount;
     public void setPurchaseDate(String purchaseDate) {
         this.purchaseDate = Validator.convertDate(purchaseDate, "Purchase date");
+    }
+    public void setPurchaseDate(Date purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
     public void setPhone(String phone) {
@@ -46,5 +50,9 @@ public class Bill extends AuditableDomain<String> implements Serializable {
     public void setAddress(String address) {
         Validator.checkNullEmptyAndLength(address, 200, "Address");
         this.address = address;
+    }
+
+    public void setCart(boolean cart) {
+        this.cart = cart;
     }
 }
