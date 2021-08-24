@@ -35,6 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/public/**",
             "/**/*.json",
             "/**/*.jpg",
+            //Admin
+            "/admin/**",
             // enable swagger endpoints
             "/swagger-resources/**",
             "/configuration/ui",

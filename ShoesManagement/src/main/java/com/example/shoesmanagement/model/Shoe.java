@@ -52,10 +52,10 @@ public class Shoe extends AuditableDomain<String> implements Serializable {
         this.status = status;
     }
 
-    public void setDescription(String description) {
-        Validator.checkNullEmptyAndLength(name, 255, "Description");
-        this.description = description;
-    }
+//    public void setDescription(String description) {
+//        Validator.checkNullEmptyAndLength(name, 255, "Description");
+//        this.description = description;
+//    }
 
     public void setDiscount(double discount) {
         Validator.checkNumber(discount, "Discount price");

@@ -1,5 +1,6 @@
 package com.example.shoesmanagement.service.implement;
 
+import com.example.shoesmanagement.admindto.response.AdminLoginResponse;
 import com.example.shoesmanagement.dto.response.ConsumerResponse;
 import com.example.shoesmanagement.dto.response.LoginResponse;
 import com.example.shoesmanagement.exception.ApplicationException;
@@ -16,11 +17,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,9 +60,14 @@ public class ConsumerServiceImp implements ConsumerService {
                                     password + passwordSalt));
 
             final UserDetails principal = (UserDetails) authenticate.getPrincipal();
-
             String token = jwtTokenProvider.createToken(principal);
-            LoginResponse consumerResponse = modelMapper.map(consumer, LoginResponse.class);
+            LoginResponse consumerResponse = new LoginResponse();
+            consumerResponse.setUsername(principal.getUsername());
+            consumerResponse.setEmail(consumer.getEmail());
+            consumerResponse.setAddress(consumer.getAddress());
+            consumerResponse.setPhone(consumer.getPhone());
+            consumerResponse.setFirstName(consumer.getFirstName());
+            consumerResponse.setLastName(consumer.getLastName());
             consumerResponse.setToken(TOKEN_PREFIX + token);
             return consumerResponse;
         } catch (AuthenticationException e) {
@@ -69,43 +76,16 @@ public class ConsumerServiceImp implements ConsumerService {
     }
 
 
-
-
     @Override
     public void saveConsumer(Consumer consumer) {
+
         consumerRepository.save(consumer);
     }
 
-    public void signup(Consumer consumer) {
 
-        consumer = consumerRepository.save(consumer);
-        billService.createBillEmptyUser(consumer);
-    }
     @Override
     public Consumer getConsumerByUsername(String username) {
         return consumerRepository.findByUsername(username);
     }
 
-
-    public List<ConsumerResponse> getAllConsumers() {
-        List<Consumer> list = (List<Consumer>) consumerRepository.findAll();
-        return list.stream().map(x -> modelMapper.map(x, ConsumerResponse.class)).collect(Collectors.toList());
-    }
-
-//    public Consumer whoami(HttpServletRequest req) {
-//        return consumerRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
-//    }
-
-//    public Consumer get(Long id) {
-//        return consumerRepository.findById(id).orElseThrow(() -> new ApplicationException("Account does not exist!"));
-//    }
-
-//    public ConsumerResponse changePassword(Long id, String oldPassword, String newPassword) {
-//        Consumer consumer = get(id);
-//        if (consumer.getPassword().equals(passwordEncoder.encode(oldPassword)))
-//            throw new ApplicationException("Old password is not correct!");
-//        consumer.setPassword(passwordEncoder.encode(newPassword));
-//        consumer = consumerRepository.save(consumer);
-//        return modelMapper.map(consumer, ConsumerResponse.class);
-//    }
 }

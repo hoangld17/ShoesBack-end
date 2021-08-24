@@ -14,7 +14,5 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateBrandRequest {
-    @NotBlank(message = ParamError.FIELD_NAME)
-    @Size(max = 64, message = ParamError.MAX_LENGTH)
     private String name;
 }

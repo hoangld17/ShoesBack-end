@@ -43,7 +43,7 @@ public class BrandServiceImp implements BrandService {
 
     @Override
     public List<Brand> getAllBrand() {
-        return brandRepository.findAll();
+        return (List<Brand>) brandRepository.findAll();
     }
 
     @Override

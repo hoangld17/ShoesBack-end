@@ -28,6 +28,7 @@ public class Bill extends AuditableDomain<String> implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long idConsumer;
+    private String consumerUsername;
     private Date purchaseDate;
     private BillType billType;
     private String phone;

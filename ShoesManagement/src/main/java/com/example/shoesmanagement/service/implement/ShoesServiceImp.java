@@ -91,7 +91,7 @@ public class ShoesServiceImp implements ShoesService {
     public Page<ShoeResponse> getPagingShoes(SearchShoeRequest searchShoeRequest) {
         this.specification = shoeSpecification.doFilterShoe(searchShoeRequest.getSearch(), searchShoeRequest.getIdBrands(), searchShoeRequest.getMinPrice(), searchShoeRequest.getMaxPrice(), searchShoeRequest.isSortType(), searchShoeRequest.getSortField());
         Pageable pageable = PageRequest.of(searchShoeRequest.getPage() - 1, searchShoeRequest.getSize());
-        return shoeRepository.findAll(specification, pageable).map(x -> convertShoeResponse(x));
+        return shoeRepository.findAll(specification, pageable).map(this::convertShoeResponse);
     }
     @Override
     public List<QuantityPerBrand> getQuantityPerBrand(){

@@ -66,7 +66,7 @@ public class BillServiceImp implements BillService {
     @Override
     public Bill createBillEmptyUser(Consumer consumer){
         Bill bill = new Bill();
-        bill.setIdConsumer(consumer.getId());
+        bill.setConsumerUsername(consumer.getUsername());
         bill.setBillType(BillType.Export);
         bill.setCart(true);
         bill.setAddress(consumer.getPhone());
